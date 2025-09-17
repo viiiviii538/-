@@ -7,7 +7,7 @@
   const LIKE_FETCH_CONC = 4;        // いいね並列取得数
   const LIKE_FETCH_MAX = 40;        // 取得上限
   const likeCache = new Map();      // href -> number|null
-  let _hydrating = false;           // 重複で hydrateLikes が走らないようにするフラグ
+  let _hydrating = false;
 
   // 検索カード内のリンク（通常/ショップ 両対応）
   const ITEM_SELECTORS = [
@@ -206,14 +206,12 @@
     if (_hydrating) return;
     _hydrating = true;
     try {
-      // いいね未取得かつリンクがある要素だけを対象にし、最大取得件数で頭打ちにする
       const targets = rows
         .filter(r => r.likes == null && r.el?.getAttribute('href'))
         .slice(0, LIKE_FETCH_MAX);
 
       let i = 0;
       async function worker() {
-        // 共有インデックス i を使って、複数ワーカーで順番に処理する
         while (i < targets.length) {
           const r = targets[i++];
           try {
@@ -230,7 +228,6 @@
           } catch { }
         }
       }
-      // 指定した並列数だけワーカーを動かし、一気にいいね数を取得する
       await Promise.all(Array.from({ length: Math.min(LIKE_FETCH_CONC, targets.length) }, worker));
     } finally {
       _hydrating = false;
@@ -324,7 +321,6 @@
 
     // いいね補完（非同期）
     if (showBadges) {
-      // バッジ描画が一旦終わってから非同期でいいね数を取りに行く
       setTimeout(() => {
         try { if (typeof hydrateLikes === 'function') hydrateLikes(rows); } catch { }
       }, 0);
