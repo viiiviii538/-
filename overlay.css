@@ -1,0 +1,44 @@
+#mer-helper-overlay {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  background: #111c;
+  color: #fff;
+  padding: 10px 12px;
+  border-radius: 10px;
+  backdrop-filter: blur(6px);
+  z-index: 999999;
+  font-family: system-ui, sans-serif;
+  min-width: 220px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .25);
+}
+
+#mer-helper-overlay .mh-title {
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 6px;
+  opacity: .9;
+}
+
+#mer-helper-overlay .mh-body {
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.mer-badge {
+  position: absolute;
+  right: 6px;
+  top: 6px;
+  font-size: 12px;
+  background: #000c;
+  color: #fff;
+  padding: 3px 6px;
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.mer-rel {
+  position: relative !important;
+}

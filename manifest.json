@@ -1,0 +1,43 @@
+{
+  "manifest_version": 3,
+  "name": "MerSearch Helper",
+  "version": "0.1.6",
+  "description": "メルカリ検索の出品数・売り切れ数・価格レンジを集計",
+  "permissions": [
+    "scripting",
+    "activeTab",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://jp.mercari.com/*",
+    "https://www.mercari.com/jp/*"
+  ],
+  "action": {
+    "default_title": "MerSearch Helper",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "assets/icons/icon16.png",
+      "24": "assets/icons/icon16.png"
+    }
+  },
+  "icons": {
+    "16": "assets/icons/icon16.png",
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://jp.mercari.com/search*",
+        "https://www.mercari.com/jp/search*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "overlay.css"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}
